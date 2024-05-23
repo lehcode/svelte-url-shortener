@@ -1,0 +1,5 @@
+name = "sv-shortener"
+main = "./src/worker/index.ts"
+kv_namespaces = [
+  { binding = "APP_KV_NS", id = "7f881aa3e041418d9155d53a82aaa718" }
+]
