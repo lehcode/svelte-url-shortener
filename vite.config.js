@@ -1,7 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, loadEnv } from 'vite';
 
-export default defineConfig(({command, mode, isSsrBuild, isPreview }) => {
+export default defineConfig(({command, mode }) => {
 	const env = loadEnv(mode, process.cwd(), 'env');
 	const appEnv = JSON.stringify(env.APP_ENV)
 	const config = {

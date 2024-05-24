@@ -1,6 +1,8 @@
 import adapter from '@sveltejs/adapter-cloudflare';
 import sveltePreprocess from 'svelte-preprocess';
 
+const nodeEnv = process.env.NODE_ENV;
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
@@ -20,8 +22,10 @@ const config = {
 		}
 	},
 	preprocess: sveltePreprocess({
-    sourceMap: process.env.NODE_ENV !== 'production',
-    typescript: true
+    sourceMap: nodeEnv !== 'production',
+    typescript: {
+			tsconfigFile: nodeEnv === 'production' ? 'tsconfig.prod.json' : 'tsconfig.dev.json'
+		}
   }),
 };
 

@@ -1,6 +1,5 @@
 import type { 
 	KVNamespace, 
-	DurableObjectNamespace,
 	CacheStorage 
 } from '@cloudflare/workers-types';
 // See https://kit.svelte.dev/docs/types#app
@@ -22,8 +21,7 @@ declare global {
 		interface PageState {}
 		interface Platform {
 			env?: {
-				APP_KV_NS: KVNamespace;
-				APP_DO_NS: DurableObjectNamespace;
+				APP_DEV_KV_NS: KVNamespace;
 			},
 			context: {
 				waitUntil(promise: Promise<any>): void;
@@ -31,7 +29,7 @@ declare global {
 			caches: CacheStorage
 		}
 		
-		const APP_KV_NS: KVNamespace;
+		const APP_DEV_KV_NS: KVNamespace;
 	}
 }
 

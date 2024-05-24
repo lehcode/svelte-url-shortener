@@ -1,5 +1,10 @@
 name = "sv-shortener"
-main = "./src/worker/index.ts"
+main = "./src/service-worker/index.ts"
 kv_namespaces = [
-  { binding = "APP_KV_NS", id = "7f881aa3e041418d9155d53a82aaa718" }
+  { binding = "APP_DEV_KV_NS", id = "5b5af9874e1144b3b6a3ad2ddb3f508c" },
+  { binding = "APP_PROD_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c" },
 ]
+compatibility_date = "2024-05-24"
+
+[vars]
+TEST_VARIABLE = "my"

@@ -6,17 +6,19 @@
 		"dev": "vite dev",
 		"build": "vite build && test:worker",
 		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.prod.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.prod.json --watch",
 		"test": "npm run test:integration && npm run test:unit",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"test:worker": "wrangler pages dev .svelte-kit/cloudflare"
+		"test:worker": "wrangler deploy --dry-run --outdir .wrangler/dist && wrangler pages dev .svelte-kit/cloudflare",
+		"deploy:worker": "wrangler deploy --outdir .wrangler/dist"
 	},
 	"devDependencies": {
 		"@cloudflare/kv-asset-handler": "^0.3.2",
+		"@picocss/pico": "^2.0.6",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/adapter-cloudflare": "^4.4.0",
@@ -28,6 +30,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"itty-router": "^5.0.17",
+		"miniflare": "^3.20240512.0",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"svelte": "^4.2.7",
@@ -41,6 +44,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@picocss/pico": "^2.0.6"
+		"@cloudflare/workers-types": "^4.20240512.0"
 	}
 }

@@ -5,7 +5,6 @@
 		"sourceMap": true,
 		"noImplicitAny": false,
 		"noUnusedLocals": false,
-		"noUnusedParameters": false,
-		"watch": true
+		"noUnusedParameters": false
 	}
 }
