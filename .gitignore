@@ -14,3 +14,10 @@ vite.config.ts.timestamp-*
 # wrangler files
 .wrangler
 .dev.vars
+
+.history
+.wrangler
+test-results
+*.bak
+.cert/*
+!.cert/.gitkeep
