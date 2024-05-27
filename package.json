@@ -1,13 +1,13 @@
 {
-  "name": "cf-svelte",
+  "name": "svelte-url-shortener",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
     "preview": "npm run build && wrangler pages dev",
     "test": "playwright test",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.prod.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.prod.json --watch",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "deploy": "npm run build && wrangler pages deploy",
