@@ -29,7 +29,7 @@ declare global {
 			geoData: App.GeoData
 		}
     export interface KVNamespaceConfig {
-			[key: string]: string;
+			[key: string]: KVNamespace;
 		}
 		// const APP_DEV_KV_NS: KVNamespace;
 		// const APP_PROD_KV_NS: KVNamespace;
