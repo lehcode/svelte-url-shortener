@@ -7,6 +7,7 @@ import type {
   IncomingRequestCfProperties,
   ExecutionContext
 } from '@cloudflare/workers-types';
+import './worker-configuration'
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
@@ -21,7 +22,7 @@ declare global {
 			region: string | undefined,
 		}
 		export interface URLData {
-			url: string | undefined;
+			url: string | URL;
 			shortUrl: string | undefined;
 			createdAt: string | undefined;
 			userAgent:  string | undefined;
@@ -37,11 +38,9 @@ declare global {
 			kvNamespaces: KVNamespaceConfig,
 			caches: CacheStorage,
 			cf?: IncomingRequestCfProperties | undefined
-      env: {
-				APP_DEV_KV_NS: KVNamespace;
-				APP_PROD_KV_NS: KVNamespace;
-			},
-      ctx: ExecutionContext
+      env: Env,
+      ctx: ExecutionContext,
+			// getKVNamespace: (name: string, platform: App.Platform, dev?: boolean) => KVNamespace
 		}
 
     

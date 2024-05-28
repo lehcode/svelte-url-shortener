@@ -1,6 +1,6 @@
 <script>
 	import '@picocss/pico';
-	import InputForm from './shortener/InputForm.svelte';
+	import InputForm from './components/InputForm.svelte';
 </script>
 
 <svelte:head>
