@@ -16,20 +16,16 @@ export async function GET({ getClientAddress, params, platform, request}) {
     return new Response('URL not found', { status: 404 });
   }
 
-  const logEntry = {
-    time: new Date().toISOString(),
+  const logEntry: App.ShortUrlLogEntry = {
+    createdAt: new Date().toISOString(),
     userAgent: request.headers.get('user-agent'),
-    geoip: platform.cf.country,
-    ip: getClientAddress()
+    userIP: getClientAddress(),
+    userCountry: platform.cf.country,
   };
 
   console.log(logEntry);
   
-  await kv.put(
-    `${shortUrl}:logs`,
-    JSON.stringify(logEntry),
-    { metadata: { type: 'log' } }
-  );
+  await kv.put(`${shortUrl}:logs`, JSON.stringify(logEntry), { metadata: { type: 'log' } });
 
   return Response.redirect(urlData.url, 302);
 }

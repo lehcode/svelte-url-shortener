@@ -5,24 +5,21 @@ import { InternalError } from '@cloudflare/kv-asset-handler';
 import { dev } from '$app/environment';
 
 /** @type {import('./$types').RequestHandler} */
-export const POST = async({request, platform}): Promise<Response> => {
+export const POST = async({request, platform, getClientAddress}): Promise<Response> => {
   const { url } = await request.json();
 	const uuid = uuidv4();
 	const shortUrl = uuid.slice(0, 8);
   const appPlatform = platform;
 
-  console.log("Platform:");
-  console.log(appPlatform);
-
   const { latitude, longitude, continent, country, city, timezone, region } = appPlatform.cf;
-  const urlData = {
-    url,
+  const urlData: App.URLData = {
+    longUrl: url,
     shortUrl, 
     createdAt: new Date().toISOString(),
+    userAgent: request.headers.get('user-agent'),
+    userIP: getClientAddress(),
     geoData: { latitude, longitude, continent, country, city, timezone, region }
   }
-
-  console.log(urlData);
 
   try {
     let kv: KVNamespace;
@@ -35,9 +32,6 @@ export const POST = async({request, platform}): Promise<Response> => {
       case false:
         kv = <KVNamespace>appPlatform.env.APP_PROD_KV_NS;
     }
-
-    console.log("Dev:", dev);
-    console.log("kv:", kv);
     
     await kv.put(uuid, JSON.stringify(urlData));
     

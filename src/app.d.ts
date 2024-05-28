@@ -22,12 +22,18 @@ declare global {
 			region: string | undefined,
 		}
 		export interface URLData {
-			url: string | URL;
+			longUrl: string | URL;
 			shortUrl: string | undefined;
 			createdAt: string | undefined;
 			userAgent:  string | undefined;
 			userIP: string | undefined;
 			geoData: App.GeoData
+		}
+		export interface ShortUrlLogEntry {
+			createdAt: string | undefined;
+			userAgent: string | undefined;
+			userIP: string | undefined;
+			userCountry: string | undefined;
 		}
     export interface KVNamespaceConfig {
 			[key: string]: KVNamespace;
