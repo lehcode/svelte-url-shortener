@@ -1,7 +1,10 @@
-import type { KVNamespace } from "@cloudflare/workers-types";
+import type { KVNamespace, KVNamespaceListResult } from "@cloudflare/workers-types";
 import { InternalError } from '@cloudflare/kv-asset-handler';
+import { from, lastValueFrom } from 'rxjs';
+import { filter, flatMap, map as rxjsMap, toArray } from 'rxjs/operators';
+import { URLData } from "../../app";
 
-export function getNSByName(name: string, dev: boolean=true, platform: App.Platform): KVNamespace {
+export const getNSByName = (name: string, dev: boolean=true, platform: App.Platform): KVNamespace => {
   let kv:KVNamespace;
   try {
     switch (dev) {
@@ -19,7 +22,7 @@ export function getNSByName(name: string, dev: boolean=true, platform: App.Platf
   return kv;
 }
 
-export function getDefaultNS(dev: boolean=true, platform: App.Platform): KVNamespace {
+export const getDefaultNS = (dev: boolean=true, platform: App.Platform): KVNamespace => {
   let kv:KVNamespace;
 
   try {
@@ -35,25 +38,18 @@ export function getDefaultNS(dev: boolean=true, platform: App.Platform): KVNames
     throw new InternalError(`Failed to initialize KV: ${error}`);
   }
 
-  if (dev) {
-    console.log("kv:", kv);
-  }
-
   return kv;
 }
 
-export async function getUrlDataFromKV(kv: KVNamespace, urlHash: string, dev: boolean=true): Promise<App.URLData | undefined> {
-  let urlData: App.URLData;
-  
-  console.log("kv:", kv);
-  console.log("urlHash:", urlHash);
-  console.log("Dev mode", dev);
+export const getUrlDataByPrefix = async(kv: KVNamespace, prefix: string, dev: boolean=true): Promise<URLData | undefined> => {
+  const list = await kv.list({ prefix: prefix });
+  let urlData: URLData;
 
-  const list = await kv.list({ prefix: urlHash });
-  console.log(`List for ${urlHash}:`, list);
-  if (list && list.keys[0]) {
-    urlData = await kv.get<App.URLData>(list.keys[0].name, { type: 'json'}) as App.URLData;
-    if (dev) console.log(urlData);
+  console.log(`List for ${prefix}:`, list);
+
+  if (list && list.keys.length) {
+    urlData = await kv.get<URLData>(list.keys[0].name, { type: 'json'}) as URLData;
+    if (dev) console.log("urlData: ", urlData);
     return urlData;
   }
 }
@@ -66,4 +62,19 @@ export const generateUrlHash = async (url: string): Promise<string> => {
     .map((bytes) => bytes.toString(16).padStart(2, '0'))
     .join('');
   return hashHex;
+}
+
+export const fetchUrlHash = async (suffix: string, ns: KVNamespace) => {
+  const result = await lastValueFrom(
+    from(ns.list()).pipe(
+      flatMap(a => a.keys),
+      filter((keyObj) => keyObj.name.endsWith(suffix)),
+      rxjsMap((keyObj) => keyObj.name.replace(`:${suffix}`, '')),
+      toArray()
+    ),
+  );
+
+  console.log(`Found record for ${suffix}`, result);
+
+  return result[0];
 }
