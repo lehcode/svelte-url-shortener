@@ -2,7 +2,7 @@
   "name": "svelte-url-shortener",
   "version": "0.0.1",
   "scripts": {
-    "dev": "npx wrangler dev src/index.ts &> /dev/null && vite dev",
+    "dev": "npx wrangler dev src/index.ts &> /dev/null && vite --mode=preview dev",
     "build": "vite build",
     "preview": "npm run build && wrangler pages dev",
     "test": "playwright test",
@@ -31,7 +31,6 @@
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.35.1",
-    "miniflare": "^3.20240512.0",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
     "rollup": "^2.0.0",
@@ -43,9 +42,7 @@
     "typescript": "^5.0.0",
     "uuid": "^9.0.1",
     "vite": "^5.0.3",
-    "vite-plugin-cloudflare": "^0.4.1",
     "vitest": "^1.6.0",
-    "vitest-environment-miniflare": "^2.14.2",
     "wrangler": "^3.57.1"
   },
   "type": "module",
