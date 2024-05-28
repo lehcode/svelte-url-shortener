@@ -32,15 +32,12 @@ declare global {
     export interface KVNamespaceConfig {
 			[key: string]: KVNamespace;
 		}
-		// const APP_DEV_KV_NS: KVNamespace;
-		// const APP_PROD_KV_NS: KVNamespace;
-    interface Platform {
+		interface Platform {
 			kvNamespaces: KVNamespaceConfig,
 			caches: CacheStorage,
 			cf?: IncomingRequestCfProperties | undefined
       env: Env,
       ctx: ExecutionContext,
-			// getKVNamespace: (name: string, platform: App.Platform, dev?: boolean) => KVNamespace
 		}
 
     

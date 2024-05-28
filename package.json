@@ -11,7 +11,7 @@
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "deploy": "npm run build && wrangler pages deploy",
-    "deploy:worker": "wrangler deploy --env=preview --outdir=.wrangler/dist/ --tsconfig=tsconfig.dev.json --minify=false",
+    "deploy:worker": "wrangler deploy src/lib/cloudflare/worker.ts --env=preview --outdir=.wrangler/dist/ --tsconfig=tsconfig.dev.json --minify=false",
     "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
   },
   "devDependencies": {
@@ -44,6 +44,8 @@
     "uuid": "^9.0.1",
     "vite": "^5.0.3",
     "vite-plugin-cloudflare": "^0.4.1",
+    "vitest": "^1.6.0",
+    "vitest-environment-miniflare": "^2.14.2",
     "wrangler": "^3.57.1"
   },
   "type": "module",

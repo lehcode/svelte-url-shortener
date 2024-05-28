@@ -7,7 +7,7 @@ export function getByName(dev: boolean, platform: App.Platform, name?: string,):
   switch (dev) {
     default:
     case true:
-      kv = <KVNamespace>platform.env.APP_DEV_KV_NS;
+      kv = <KVNamespace>platform.env.APP_PREVIEW_KV_NS;
       break;
     case false:
       kv = <KVNamespace>platform.env.APP_PROD_KV_NS;

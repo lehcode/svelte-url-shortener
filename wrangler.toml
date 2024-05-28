@@ -1,16 +1,22 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "cf-svelte"
 compatibility_date = "2024-05-24"
-main = "src/lib/cloudflare/worker.ts"
+#main = "src/lib/cloudflare/worker.ts"
+pages_build_output_dir = ".svelte-kit/cloudflare"
+kv_namespaces = [
+  { binding = "APP_PREVIEW_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c", preview_id = "5a4755f17bd64d70a26ee5e16703c147" },
+]
 
-[[env.preview.kv_namespaces]]
-binding = "APP_PREVIEW_KV_NS"
-preview_id = "5a4755f17bd64d70a26ee5e16703c147"
-id = "1e5cb814652244c0aecdcec92abc275c"
+[env.preview]
+kv_namespaces = [
+  { binding = "workers_sites_assets", id = "0379dc926b504d85a865bd5aa9c5ed78" },
+  { binding = "APP_PREVIEW_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c", preview_id = "5a4755f17bd64d70a26ee5e16703c147" },
+]
 
-[[env.production.kv_namespaces]]
-binding = "APP_PROD_KV_NS"
-id = "1e5cb814652244c0aecdcec92abc275c"
+[env.production]
+kv_namespaces = [
+  { binding = "APP_PROD_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c" }
+]
 
 [env.production.vars]
 PROD_VARIABLE = "bar"
@@ -18,8 +24,8 @@ PROD_VARIABLE = "bar"
 [env.production.d1]
 DATABASES = ["url_redirects"]
 
-[site]
-bucket = "./.svelte-kit/generated/client-optimized"
+#[site]
+#bucket = "./.svelte-kit/generated/client-optimized"
 
 # Automatically place your workloads in an optimal location to minimize latency.
 # If you are running back-end logic in a Pages Function, running it closer to your back-end infrastructure

@@ -8,7 +8,7 @@ export const fallBackPlatformToMiniFlareInDev = async (_platform: App.Platform) 
   const mf = new Miniflare({
     modules: true,
     scriptPath: './.wrangler/dist/index.js',
-    kvNamespaces: ["APP_DEV_KV_NS"],
+    kvNamespaces: ["APP_PREVIEW_KV_NS"],
     kvPersist: "./kv-data",
     log: new Log(LogLevel.DEBUG),
     host: "127.0.0.1",
@@ -18,7 +18,7 @@ export const fallBackPlatformToMiniFlareInDev = async (_platform: App.Platform) 
   return {
     ..._platform,
     env: {
-      APP_DEV_KV_NS: (await mf.getKVNamespace('APP_DEV_KV_NS'))
+      APP_PREVIEW_KV_NS: (await mf.getKVNamespace('APP_PREVIEW_KV_NS'))
     }
   };
 };

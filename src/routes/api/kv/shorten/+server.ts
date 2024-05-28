@@ -34,7 +34,7 @@ export const POST = async({request, platform}): Promise<Response> => {
     switch (dev) {
       default:
       case true:
-        kv = <KVNamespace>appPlatform.env.APP_DEV_KV_NS;
+        kv = <KVNamespace>appPlatform.env.APP_PREVIEW_KV_NS;
         break;
       case false:
         kv = <KVNamespace>appPlatform.env.APP_PROD_KV_NS;
