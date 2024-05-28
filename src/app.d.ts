@@ -23,6 +23,7 @@ declare global {
 		}
 		export interface URLData {
 			longUrl: string | URL;
+			urlHash: string | undefined;
 			shortUrl: string | undefined;
 			createdAt: string | undefined;
 			userAgent:  string | undefined;
