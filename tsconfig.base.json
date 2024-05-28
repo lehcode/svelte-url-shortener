@@ -12,6 +12,7 @@
 		"types": ["@cloudflare/workers-types"],
 		"paths": {
 			"$app/*": ["./*"],
+			"$lib": ["./src/lib"],
 			"$lib/*": ["./src/lib/*"],
 		}
 	}

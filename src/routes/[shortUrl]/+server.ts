@@ -1,17 +1,16 @@
-// import { Router } from 'itty-router';
 import type { KVNamespace } from '@cloudflare/workers-types';
 import { getByName } from '$lib/kv/namespace';
 import { dev } from '$app/environment';
-// import { fallBackPlatformToMiniFlareInDev } from '$lib/miniflare/miniflare';
 
-// const router = Router();
+// Comment next line if deploying to Cloudflare
+// import { getPlatform } from '$lib/miniflare/miniflare';
+
 
 /** @type {import('./$types').PageServerLoad} */
-export async function GET({ getClientAddress, params, platform, request}) {
-  // const _platform = await fallBackPlatformToMiniFlareInDev(platform, dev);
-  const _platform: App.Platform = pla
+export async function GET({ getClientAddress, params, platform, request}: Record<string, never>) {
   const { shortUrl } = params;
-  const kv:KVNamespace = getByName(dev, _platform);
+  // const appPlatform = getPlatform(platform);
+  const kv:KVNamespace = getByName(dev, platform);
   const list = await kv.list({ prefix: shortUrl });
   const urlData = await kv.get<App.URLData>(list.keys[0].name, { type: 'json'});
   
@@ -24,7 +23,7 @@ export async function GET({ getClientAddress, params, platform, request}) {
   const logEntry = {
     time: new Date().toISOString(),
     userAgent: request.headers.get('user-agent'),
-    geoip: _platform.cf.country,
+    geoip: appPlatform.cf?.country,
     ip: getClientAddress()
   };
 
@@ -38,8 +37,3 @@ export async function GET({ getClientAddress, params, platform, request}) {
 
   return Response.redirect(urlData.url, 302);
 }
-
-// addEventListener('fetch', (event: any): void => {
-//   console.log(typeof event);
-//   event.respondWith(router.handle(event.request));
-// });
