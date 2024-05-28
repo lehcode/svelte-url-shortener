@@ -4,10 +4,6 @@ import type { KVNamespace } from '@cloudflare/workers-types';
 import { InternalError } from '@cloudflare/kv-asset-handler';
 import { dev } from '$app/environment';
 
-// Comment next line if deploying to Cloudflare
-// import { getPlatform } from '$lib/miniflare/miniflare';
-
-
 /** @type {import('./$types').RequestHandler} */
 export const POST = async({request, platform}): Promise<Response> => {
   const { url } = await request.json();

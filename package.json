@@ -2,7 +2,7 @@
   "name": "svelte-url-shortener",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "npx wrangler dev src/index.ts &> /dev/null && vite dev",
     "build": "vite build",
     "preview": "npm run build && wrangler pages dev",
     "test": "playwright test",

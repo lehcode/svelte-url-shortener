@@ -2,12 +2,8 @@ import type { KVNamespace } from '@cloudflare/workers-types';
 import { getByName } from '$lib/kv/namespace';
 import { dev } from '$app/environment';
 
-// Comment next line if deploying to Cloudflare
-// import { getPlatform } from '$lib/miniflare/miniflare';
-
-
 /** @type {import('./$types').PageServerLoad} */
-export async function GET({ getClientAddress, params, platform, request}: Record<string, never>) {
+export async function GET({ getClientAddress, params, platform, request}) {
   const { shortUrl } = params;
   // const appPlatform = getPlatform(platform);
   const kv:KVNamespace = getByName(dev, platform);
@@ -23,7 +19,7 @@ export async function GET({ getClientAddress, params, platform, request}: Record
   const logEntry = {
     time: new Date().toISOString(),
     userAgent: request.headers.get('user-agent'),
-    geoip: appPlatform.cf?.country,
+    geoip: platform.cf.country,
     ip: getClientAddress()
   };
 
