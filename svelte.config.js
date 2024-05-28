@@ -34,7 +34,7 @@ const config = {
 	vite: {
 		resolve: {
 			alias: {
-				'$lib': '/src/lib'
+				'$lib': './src/lib'
 			}
 		}
 	}

@@ -11,6 +11,7 @@
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "deploy": "npm run build && wrangler pages deploy",
+    "deploy:worker": "wrangler deploy --env=preview --outdir=.wrangler/dist/ --tsconfig=tsconfig.dev.json --minify=false",
     "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
   },
   "devDependencies": {
@@ -26,12 +27,14 @@
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "esbuild": "^0.21.4",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.35.1",
     "miniflare": "^3.20240512.0",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
+    "rollup": "^2.0.0",
     "sass": "^1.77.2",
     "svelte": "^4.2.7",
     "svelte-check": "^3.6.0",
@@ -40,6 +43,7 @@
     "typescript": "^5.0.0",
     "uuid": "^9.0.1",
     "vite": "^5.0.3",
+    "vite-plugin-cloudflare": "^0.4.1",
     "wrangler": "^3.57.1"
   },
   "type": "module",
