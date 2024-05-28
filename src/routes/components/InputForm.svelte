@@ -31,12 +31,8 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-  <input type="url" bind:value={longUrl} required />
-  <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Submit'}</button>
-  {#if shortUrl}
-    <p>Short URL: {shortUrl}</p>
-  {/if}
-  {#if errorMessage}
-    <p class="error">{errorMessage}</p>
-  {/if}
+  <input type="url" bind:value={longUrl} required />{#if !shortUrl}
+    <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Submit'}</button>{:else}
+    <p>Short URL: <a target="_blank" href="/{shortUrl}">{shortUrl}</a></p>{/if}{#if errorMessage}
+    <p class="error">{errorMessage}</p>{/if}
 </form>
