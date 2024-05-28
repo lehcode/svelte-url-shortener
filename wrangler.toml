@@ -9,7 +9,6 @@ kv_namespaces = [
 
 [env.preview]
 kv_namespaces = [
-  { binding = "workers_sites_assets", id = "0379dc926b504d85a865bd5aa9c5ed78" },
   { binding = "APP_PREVIEW_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c", preview_id = "5a4755f17bd64d70a26ee5e16703c147" },
 ]
 
