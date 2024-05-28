@@ -13,9 +13,15 @@ addEventListener("fetch", (event: any) => {
     return;
   }
 
-  const response = getAssetFromKV(event);
-
-  event.respondWith(
-    response.then(res => new Response(res.body, { ...res, headers: { "Cache-Control": `public, max-age=${cacheControl.browserTTL}` } }))
-  );
+  const response = getAssetFromKV(event)
+  .then((asset) => {
+    return new Response(asset.body, {
+      headers: {
+        ...asset.headers,
+        "Cache-Control": `public, max-age=${cacheControl.browserTTL}`
+      }
+    });
+  });
+  
+  event.respondWith(response);
 });
