@@ -27,5 +27,5 @@ export async function GET({ getClientAddress, params, platform, request}) {
   
   await kv.put(`${shortUrl}:logs`, JSON.stringify(logEntry), { metadata: { type: 'log' } });
 
-  return Response.redirect(urlData.url, 302);
+  return Response.redirect(urlData.longUrl, 302);
 }
