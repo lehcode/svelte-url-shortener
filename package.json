@@ -11,7 +11,7 @@
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
     "deploy": "npm run build && wrangler pages deploy",
-    "deploy:worker": "wrangler deploy src/lib/cloudflare/worker.ts --env=preview --outdir=.wrangler/dist/ --tsconfig=tsconfig.dev.json --minify=false",
+    "deploy:worker": "wrangler deploy src/index.ts --env=preview --outdir=.wrangler/dist/ --tsconfig=tsconfig.dev.json --minify=false",
     "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
   },
   "devDependencies": {
