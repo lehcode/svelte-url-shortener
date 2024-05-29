@@ -2,7 +2,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, loadEnv } from 'vite';
 import vpc from "vite-plugin-cloudflare";
 
-export default defineConfig(({command, mode }) => {
+export default defineConfig(({ command, mode }) => {
 	const env = loadEnv(mode, process.cwd(), 'env');
 	const appEnv = JSON.stringify(env.APP_ENV);
 
@@ -22,14 +22,13 @@ export default defineConfig(({command, mode }) => {
 		test: {
 			include: ['src/**/*.{test,spec}.{js,ts}']
 		},
-		define: { __APP_ENV__: appEnv}
-	}
+		define: { __APP_ENV__: appEnv }
+	};
 
 	if (command === 'serve') {
-    return config
-  } else {
-    // command === 'build'
-    return config
-  }
+		return config;
+	} else {
+		// command === 'build'
+		return config;
+	}
 });
-

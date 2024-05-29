@@ -1,39 +1,34 @@
 import type { KVNamespace } from '@cloudflare/workers-types';
-import { getByName } from '$lib/kv/namespace';
+import { getDefaultNS, fetchUrlHash, getUrlDataByPrefix } from '$lib/kv/namespace';
 import { dev } from '$app/environment';
-
-// Comment next line if deploying to Cloudflare
-// import { getPlatform } from '$lib/miniflare/miniflare';
-
+import { ShortUrlLogEntry } from '../../app.d';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function GET({ getClientAddress, params, platform, request}: Record<string, never>) {
-  const { shortUrl } = params;
-  // const appPlatform = getPlatform(platform);
-  const kv:KVNamespace = getByName(dev, platform);
-  const list = await kv.list({ prefix: shortUrl });
-  const urlData = await kv.get<App.URLData>(list.keys[0].name, { type: 'json'});
-  
-  console.log(urlData);
+export async function GET({ getClientAddress, params, platform, request }) {
+	let { shortUrl } = params;
+	const kv: KVNamespace = getDefaultNS(dev, platform);
+	const urlHash = await fetchUrlHash(shortUrl, kv);
+	// console.log(`URL hash for '${shortUrl}'`, urlHash);
 
-  if (!urlData) {
-    return new Response('URL not found', { status: 404 });
-  }
+	if (urlHash) {
+		const logEntry: ShortUrlLogEntry = {
+			createdAt: new Date().toISOString(),
+			userAgent: request.headers.get('user-agent'),
+			userIP: getClientAddress()
+		};
+		const urlSlug = `${urlHash}:${shortUrl}`;
+		const urlData = await getUrlDataByPrefix(kv, urlHash);
+		shortUrl = urlData.shortUrl;
 
-  const logEntry = {
-    time: new Date().toISOString(),
-    userAgent: request.headers.get('user-agent'),
-    geoip: appPlatform.cf?.country,
-    ip: getClientAddress()
-  };
+		if (dev) {
+			console.log('logEntry', logEntry);
+			console.log('urlSlug', urlSlug);
+		}
 
-  console.log(logEntry);
-  
-  await kv.put(
-    `${shortUrl}:logs`,
-    JSON.stringify(logEntry),
-    { metadata: { type: 'log' } }
-  );
+		await kv.put(`${urlSlug}:logs`, JSON.stringify(logEntry), { metadata: { type: 'log' } });
 
-  return Response.redirect(urlData.url, 302);
+		return Response.redirect(urlData.longUrl, 302);
+	}
+
+	return new Response('Not Found', { status: 404 });
 }

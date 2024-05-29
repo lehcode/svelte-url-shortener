@@ -1,6 +1,6 @@
-@use "pico" with (
-  $theme-color: "green",
-  $semantic-root-element: "#root",
-  $enable-semantic-container: true,
-  $enable-classes: false
+@use 'pico' with (
+	$theme-color: 'green',
+	$semantic-root-element: '#root',
+	$enable-semantic-container: true,
+	$enable-classes: false
 );
