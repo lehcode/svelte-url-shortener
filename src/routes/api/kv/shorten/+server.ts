@@ -15,6 +15,8 @@ import type { URLData } from '../../../../app.d';
 export const POST = async ({ request, platform }): Promise<Response> => {
 	// Get the default KV namespace
 	const kv: KVNamespace = getDefaultNS(dev, platform);
+	console.log(platform);
+	console.log(kv);
 
 	// Extract the long URL from the request body
 	const { url } = await request.json();
