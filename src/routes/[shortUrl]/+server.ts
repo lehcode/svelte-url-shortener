@@ -25,7 +25,7 @@ export async function GET({ getClientAddress, params, platform, request }) {
 			createdAt
 		};
 
-		console.log("Metadata:", metadata);
+		console.log('Metadata:', metadata);
 
 		await kv.put(`${shortUrl}:${btoa(createdAt)}`, JSON.stringify(logEntry), { metadata });
 
