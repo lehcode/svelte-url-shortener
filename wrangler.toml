@@ -4,21 +4,26 @@ compatibility_date = "2024-05-12"
 #main = "src/lib/cloudflare/worker.ts"
 pages_build_output_dir = ".svelte-kit/cloudflare"
 kv_namespaces = [
-  { binding = "APP_PREVIEW_KV_NS", id = "5a4755f17bd64d70a26ee5e16703c147", preview_id = "5a4755f17bd64d70a26ee5e16703c147" },
+  { binding = "APP_PREVIEW_KV_NS", id = "5a4755f17bd64d70a26ee5e16703c147" },
+  { binding = "APP_PROD_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c" },
 ]
 
 [env.preview]
 kv_namespaces = [
-  { binding = "APP_PREVIEW_KV_NS", id = "5a4755f17bd64d70a26ee5e16703c147", preview_id = "5a4755f17bd64d70a26ee5e16703c147" },
+  { binding = "APP_PREVIEW_KV_NS", id = "5a4755f17bd64d70a26ee5e16703c147" },
 ]
 
 [env.production]
 kv_namespaces = [
-  { binding = "APP_PROD_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c" }
+  { binding = "APP_PROD_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c" },
 ]
 
+[env.preview.vars]
+MY_VARIABLE = "preview"
+
+
 [env.production.vars]
-PROD_VARIABLE = "bar"
+MY_VARIABLE = "production"
 
 [env.production.d1]
 DATABASES = ["url_redirects"]
