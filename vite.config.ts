@@ -1,6 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, loadEnv } from 'vite';
-import vpc from "vite-plugin-cloudflare";
 
 export default defineConfig(({ command, mode }) => {
 	const env = loadEnv(mode, process.cwd(), 'env');
