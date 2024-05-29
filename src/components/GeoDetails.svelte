@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { GeoData } from '../../app';
+	import type { GeoData } from '../app';
 	export let geoData: GeoData = {} as GeoData;
 </script>
 

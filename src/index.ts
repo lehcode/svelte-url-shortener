@@ -1,5 +1,5 @@
 import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
-import type { FetchEvent, KVNamespace, R2Bucket } from '@cloudflare/workers-types';
+import type { FetchEvent } from '@cloudflare/workers-types';
 
 const cacheControl = {
 	browserTTL: 259200 // 3 days (in seconds)

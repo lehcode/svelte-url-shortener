@@ -1,9 +1,7 @@
 <script lang="ts">
-	import GeoDetails from './GeoDetails.svelte';
-	import type { GeoData, URLData } from '../../app.d';
+	import type { URLData } from '../app.d';
 
 	export let urlData: URLData;
-	let geoData: GeoData = urlData.geoData;
 </script>
 
 <section>

@@ -1,11 +1,7 @@
 import type {
-	KVNamespace,
-	CacheStorage,
 	IncomingRequestCfPropertiesGeographicInformation,
 	Iso3166Alpha2Code,
-	ContinentCode,
-	IncomingRequestCfProperties,
-	ExecutionContext
+	ContinentCode
 } from '@cloudflare/workers-types';
 import './worker-configuration';
 

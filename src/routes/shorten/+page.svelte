@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '@picocss/pico';
-	import InputForm from '../components/InputForm.svelte';
-	import UrlDetails from '../components/UrlDetails.svelte';
+	import InputForm from '../../components/InputForm.svelte';
+	import UrlDetails from '../../components/UrlDetails.svelte';
 	import type { URLData } from '../../app.d';
 
 	let urlData: URLData;

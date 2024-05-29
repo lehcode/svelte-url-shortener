@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import type { URLData } from '../../app.d';
+	import type { URLData } from '../app.d';
 
 	let longUrl = '';
 	export let formError = '';
