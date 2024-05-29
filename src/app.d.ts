@@ -1,51 +1,59 @@
-import type { 
-	KVNamespace, 
+import type {
+	KVNamespace,
 	CacheStorage,
-  IncomingRequestCfPropertiesGeographicInformation,
-  Iso3166Alpha2Code,
-  ContinentCode,
-  IncomingRequestCfProperties,
-  ExecutionContext
+	IncomingRequestCfPropertiesGeographicInformation,
+	Iso3166Alpha2Code,
+	ContinentCode,
+	IncomingRequestCfProperties,
+	ExecutionContext
 } from '@cloudflare/workers-types';
+import './worker-configuration';
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
-  namespace App {
-    export interface GeoData extends IncomingRequestCfPropertiesGeographicInformation {
-			latitude: string | undefined,
-			longitude: string | undefined,
-			continent: ContinentCode | undefined,
-			country: Iso3166Alpha2Code | "T1" | undefined,
-			city: string | undefined,
-			timezone: string | undefined,
-			region: string | undefined,
-		}
-		export interface URLData {
-			url: string | undefined;
-			shortUrl: string | undefined;
-			createdAt: string | undefined;
-			userAgent:  string | undefined;
-			userIP: string | undefined;
-			geoData: App.GeoData
-		}
-    export interface KVNamespaceConfig {
+	namespace App {
+		interface KVNamespaceConfig {
 			[key: string]: KVNamespace;
 		}
-		// const APP_DEV_KV_NS: KVNamespace;
-		// const APP_PROD_KV_NS: KVNamespace;
-    interface Platform {
-			kvNamespaces: KVNamespaceConfig,
-			caches: CacheStorage,
-			cf?: IncomingRequestCfProperties | undefined
-      env: {
-				APP_DEV_KV_NS: KVNamespace;
-				APP_PROD_KV_NS: KVNamespace;
-			},
-      ctx: ExecutionContext
+		interface Platform {
+			kvNamespaces: KVNamespaceConfig;
+			caches: CacheStorage;
+			cf?: IncomingRequestCfProperties | undefined;
+			env: Env;
+			ctx: ExecutionContext;
 		}
-
-    
-  }
+		interface PageData {
+			urlData: URLData;
+		}
+		interface Error {
+			message: string;
+			stack: unknown[];
+		}
+	}
 }
 
 export {};
+
+export interface GeoData extends IncomingRequestCfPropertiesGeographicInformation {
+	latitude: string | undefined;
+	longitude: string | undefined;
+	continent: ContinentCode | undefined;
+	country: Iso3166Alpha2Code | 'T1' | undefined;
+	city: string | undefined;
+	timezone: string | undefined;
+	region: string | undefined;
+}
+export interface URLData {
+	longUrl: string | URL;
+	urlHash: string | undefined;
+	shortUrl: string | undefined;
+	createdAt: string | undefined;
+	userAgent?: string | undefined;
+	userIP?: string | undefined;
+	geoData: GeoData;
+}
+export interface ShortUrlLogEntry {
+	createdAt: string | undefined;
+	userAgent?: string | undefined;
+	userIP?: string | undefined;
+}

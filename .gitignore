@@ -21,3 +21,5 @@ test-results
 *.bak
 .cert/*
 !.cert/.gitkeep
+kv-data/
+.vscode

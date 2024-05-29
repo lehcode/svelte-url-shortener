@@ -1,4 +1,4 @@
-import adapter from "@sveltejs/adapter-cloudflare";
+import adapter from '@sveltejs/adapter-cloudflare';
 import sveltePreprocess from 'svelte-preprocess';
 
 const nodeEnv = process.env.NODE_ENV;
@@ -8,11 +8,11 @@ const config = {
 	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
 	preprocess: sveltePreprocess({
-    sourceMap: nodeEnv !== 'production',
-    typescript: {
+		sourceMap: nodeEnv !== 'production',
+		typescript: {
 			tsconfigFile: nodeEnv === 'production' ? 'tsconfig.prod.json' : 'tsconfig.dev.json'
 		}
-  }),
+	}),
 
 	kit: {
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
@@ -29,12 +29,12 @@ const config = {
 		})
 	},
 	vitePlugin: {
-		inspector: true,
+		inspector: true
 	},
 	vite: {
 		resolve: {
 			alias: {
-				'$lib': '/src/lib'
+				$lib: './src/lib'
 			}
 		}
 	}

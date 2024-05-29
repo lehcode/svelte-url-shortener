@@ -1,6 +1,5 @@
 <script>
 	import '@picocss/pico';
-	import InputForm from './shortener/InputForm.svelte';
 </script>
 
 <svelte:head>
@@ -9,8 +8,7 @@
 </svelte:head>
 
 <section>
-	<p>Enter long URL:</p>
-	<InputForm />
+	<h1>Welcome!</h1>
 </section>
 
 <style>
