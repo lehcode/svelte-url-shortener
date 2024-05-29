@@ -16,23 +16,25 @@
 			</thead>
 			<tbody>
 				{#each Object.keys(urlData).filter((key) => key !== 'geoData' && key !== 'urlHash') as key}
-				<tr>
-					<td>
-						{key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}
-					</td>
-					<td>
-						{#if key === 'longUrl'}
-							<a href={urlData[key]} target="_blank">{urlData[key]}</a>
-						{:else if key === 'shortUrl'}
-							<a href={urlData[key]} target="_blank">{document.location.protocol}//{document.location.host}/{urlData.shortUrl}</a>
-						{:else if key === 'createdAt'}
-							{new Date(urlData[key]).toLocaleString()}
-						{:else}
-							{urlData[key]}
-						{/if}
-					</td>
-				</tr>
-			{/each}
+					<tr>
+						<td>
+							{key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}
+						</td>
+						<td>
+							{#if key === 'longUrl'}
+								<a href={urlData[key]} target="_blank">{urlData[key]}</a>
+							{:else if key === 'shortUrl'}
+								<a href={urlData[key]} target="_blank"
+									>{document.location.protocol}//{document.location.host}/{urlData.shortUrl}</a
+								>
+							{:else if key === 'createdAt'}
+								{new Date(urlData[key]).toLocaleString()}
+							{:else}
+								{urlData[key]}
+							{/if}
+						</td>
+					</tr>
+				{/each}
 			</tbody>
 		</table>
 

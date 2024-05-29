@@ -8,12 +8,11 @@
 		"test": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.prod.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.prod.json --watch",
-		"lint": "prettier --check . && eslint .",
-		"prettier:lint": "prettier --check --write . && eslint .",
-		"format": "prettier --write .",
-		"deploy": "npm run build && wrangler pages deploy",
-		"deploy:worker": "wrangler deploy src/index.ts --env=preview --outdir=.wrangler/dist/ --tsconfig=tsconfig.prod.json --minify=true",
-		"cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
+		"lint": "npx prettier --check . && eslint .",
+		"format": "npx prettier --write .",
+		"deploy": "npm run build && npx wrangler pages deploy --branch=master",
+		"local:deploy": "wrangler deploy src/index.ts --env=preview --outdir=.wrangler/dist/ --tsconfig=tsconfig.prod.json --minify=true",
+		"local:cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
 	},
 	"devDependencies": {
 		"@cloudflare/kv-asset-handler": "^0.3.2",
