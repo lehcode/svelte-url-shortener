@@ -8,23 +8,35 @@
 
 <section>
 	{#if Object.keys(urlData).length > 0}
-		<h2>URL Data</h2>
-		<dl>
-			{#each Object.keys(urlData).filter((key) => key !== 'geoData') as key}
-				<dt>{key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}:</dt>
-				<dd>
-					{#if key === 'longUrl'}
-						<a href={urlData[key]} target="_blank">{urlData[key]}</a>
-					{:else if key === 'createdAt'}
-						{new Date(urlData[key]).toLocaleString()}
-					{:else}
-						{urlData[key]}
-					{/if}
-				</dd>
+		<table>
+			<thead>
+				<th>
+					<h2>URL Data</h2>
+				</th>
+			</thead>
+			<tbody>
+				{#each Object.keys(urlData).filter((key) => key !== 'geoData' && key !== 'urlHash') as key}
+				<tr>
+					<td>
+						{key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}
+					</td>
+					<td>
+						{#if key === 'longUrl'}
+							<a href={urlData[key]} target="_blank">{urlData[key]}</a>
+						{:else if key === 'shortUrl'}
+							<a href={urlData[key]} target="_blank">{document.location.protocol}://{document.location.host}/{urlData.shortUrl}</a>
+						{:else if key === 'createdAt'}
+							{new Date(urlData[key]).toLocaleString()}
+						{:else}
+							{urlData[key]}
+						{/if}
+					</td>
+				</tr>
 			{/each}
-		</dl>
+			</tbody>
+		</table>
 
-		<GeoDetails {geoData} />
+		<!-- <GeoDetails {geoData} /> -->
 	{/if}
 </section>
 
@@ -35,19 +47,5 @@
 
 	h2 {
 		text-align: center;
-	}
-
-	dl {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	dt {
-		font-weight: bold;
-	}
-
-	dd {
-		margin-left: 1rem;
 	}
 </style>
