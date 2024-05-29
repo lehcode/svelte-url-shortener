@@ -8,8 +8,7 @@
 </svelte:head>
 
 <section>
-	<p>Welcome!</p>
-	<!-- <InputForm /> -->
+	<h1>Welcome!</h1>
 </section>
 
 <style>

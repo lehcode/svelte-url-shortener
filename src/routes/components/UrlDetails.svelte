@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
 	import GeoDetails from "./GeoDetails.svelte";
-  import type { GeoData, URLData } from "../../app";
+  import type { GeoData, URLData } from "../../app.d";
 
   export let urlData: URLData;
   let geoData: GeoData = urlData.geoData;

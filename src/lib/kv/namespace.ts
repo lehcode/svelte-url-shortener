@@ -45,11 +45,11 @@ export const getUrlDataByPrefix = async(kv: KVNamespace, prefix: string, dev: bo
   const list = await kv.list({ prefix: prefix });
   let urlData: URLData;
 
-  console.log(`List for ${prefix}:`, list);
+  // console.log(`List for ${prefix}:`, list);
 
   if (list && list.keys.length) {
     urlData = await kv.get<URLData>(list.keys[0].name, { type: 'json'}) as URLData;
-    if (dev) console.log("urlData: ", urlData);
+    if (dev) console.log("Loaded from KV:", urlData);
     return urlData;
   }
 }
