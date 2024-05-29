@@ -36,7 +36,7 @@
 			</tbody>
 		</table>
 
-		<GeoDetails {geoData} />
+		<!-- <GeoDetails {geoData} /> -->
 	{/if}
 </section>
 
