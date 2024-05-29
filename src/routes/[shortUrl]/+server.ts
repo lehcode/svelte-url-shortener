@@ -1,31 +1,35 @@
 import type { KVNamespace } from '@cloudflare/workers-types';
 import { getDefaultNS, fetchUrlHash, getUrlDataByPrefix } from '$lib/kv/namespace';
 import { dev } from '$app/environment';
-import { ShortUrlLogEntry } from '../../app.d';
+import { ShortUrlLogEntry, UrlLogEntryMetadata } from '../../app.d';
 
-/** @type {import('./$types').PageServerLoad} */
 export async function GET({ getClientAddress, params, platform, request }) {
-	let { shortUrl } = params;
+	const { shortUrl } = params;
 	const kv: KVNamespace = getDefaultNS(dev, platform);
 	const urlHash = await fetchUrlHash(shortUrl, kv);
-	// console.log(`URL hash for '${shortUrl}'`, urlHash);
+
+	if (dev) console.log(`Found URL hash for short URL '${shortUrl}'`, urlHash);
 
 	if (urlHash) {
 		const logEntry: ShortUrlLogEntry = {
-			createdAt: new Date().toISOString(),
 			userAgent: request.headers.get('user-agent'),
 			userIP: getClientAddress()
 		};
-		const urlSlug = `${urlHash}:${shortUrl}`;
+
+		if (dev) console.log('logEntry', logEntry);
+
 		const urlData = await getUrlDataByPrefix(kv, urlHash);
-		shortUrl = urlData.shortUrl;
+		const createdAt = new Date().toISOString();
+		const metadata: UrlLogEntryMetadata = {
+			type: 'log',
+			createdAt
+		};
 
-		if (dev) {
-			console.log('logEntry', logEntry);
-			console.log('urlSlug', urlSlug);
-		}
+		console.log("Metadata:", metadata);
 
-		await kv.put(`${urlSlug}:logs`, JSON.stringify(logEntry), { metadata: { type: 'log' } });
+		await kv.put(`${shortUrl}:${btoa(createdAt)}`, JSON.stringify(logEntry), { metadata });
+
+		if (dev) console.log(`Redirecting to ${urlData.longUrl}`);
 
 		return Response.redirect(urlData.longUrl, 302);
 	}

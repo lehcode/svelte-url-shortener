@@ -80,7 +80,7 @@ export const fetchUrlHash = async (suffix: string, ns: KVNamespace) => {
 		)
 	);
 
-	console.log(`Found record for ${suffix}`, result);
+	// console.log(`Found record for ${suffix}`, result);
 
 	return result[0];
 };
