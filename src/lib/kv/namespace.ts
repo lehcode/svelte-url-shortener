@@ -1,4 +1,4 @@
-import type { KVNamespace, KVNamespaceListResult } from '@cloudflare/workers-types';
+import type { KVNamespace } from '@cloudflare/workers-types';
 import { InternalError } from '@cloudflare/kv-asset-handler';
 import { from, lastValueFrom } from 'rxjs';
 import { filter, flatMap, map as rxjsMap, toArray } from 'rxjs/operators';
