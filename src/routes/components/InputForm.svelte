@@ -42,7 +42,7 @@
 		<p>
 			Click short URL&nbsp;-&gt;
 			<a target="_blank" href="/{urlData.shortUrl}">
-				{document.location.protocol}://{document.location.host}/{urlData.shortUrl}
+				{document.location.protocol}//{document.location.host}/{urlData.shortUrl}
 			</a>
 		</p>
 	{/if}

@@ -11,18 +11,8 @@ type Evt = {
 };
 
 // @ts-expect-error False positive
-addEventListener('fetch', async (event: FetchEvent) => {
-	const request = event.request;
-
-	console.log('Request:', request);
-
-	if (!request.url.endsWith('/')) {
-		return;
-	}
-
-	const done = await handleRequest(event as unknown as Evt);
-
-	event.respondWith(done);
+addEventListener('fetch', (event: FetchEvent) => {
+	event.respondWith(handleRequest(event as unknown as Evt));
 });
 
 async function handleRequest(fetchEvent: Evt) {
@@ -35,21 +25,4 @@ async function handleRequest(fetchEvent: Evt) {
 			'Cache-Control': `public, max-age=${cacheControl.browserTTL}`
 		}
 	});
-}
-
-export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	MY_KV_NAMESPACE: KVNamespace;
-	//
-	// Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-	// MY_DURABLE_OBJECT: DurableObjectNamespace;
-	//
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-	MY_BUCKET: R2Bucket;
-	//
-	// Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
-	// MY_SERVICE: Fetcher;
-	//
-	// Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
-	// MY_QUEUE: Queue;
 }

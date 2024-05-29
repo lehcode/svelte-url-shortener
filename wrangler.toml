@@ -5,18 +5,17 @@ compatibility_date = "2024-05-12"
 pages_build_output_dir = ".svelte-kit/cloudflare"
 kv_namespaces = [
   { binding = "APP_PREVIEW_KV_NS", id = "5a4755f17bd64d70a26ee5e16703c147" },
-  { binding = "APP_PROD_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c" },
 ]
 
 [env.preview]
 kv_namespaces = [
   { binding = "APP_PREVIEW_KV_NS", id = "5a4755f17bd64d70a26ee5e16703c147" },
+  { binding = "APP_PROD_KV_NS", id = "81583a3d201a4bd99751dc42a5e32ba9" },
 ]
 
-[env.production]
-kv_namespaces = [
-  { binding = "APP_PROD_KV_NS", id = "1e5cb814652244c0aecdcec92abc275c" },
-]
+[[env.production.kv_namespaces]]
+binding = "APP_PROD_KV_NS"
+id = "81583a3d201a4bd99751dc42a5e32ba9"
 
 [env.preview.vars]
 MY_VARIABLE = "preview"

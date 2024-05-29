@@ -24,7 +24,7 @@
 						{#if key === 'longUrl'}
 							<a href={urlData[key]} target="_blank">{urlData[key]}</a>
 						{:else if key === 'shortUrl'}
-							<a href={urlData[key]} target="_blank">{document.location.protocol}://{document.location.host}/{urlData.shortUrl}</a>
+							<a href={urlData[key]} target="_blank">{document.location.protocol}//{document.location.host}/{urlData.shortUrl}</a>
 						{:else if key === 'createdAt'}
 							{new Date(urlData[key]).toLocaleString()}
 						{:else}
