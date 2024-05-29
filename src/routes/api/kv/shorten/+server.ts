@@ -24,6 +24,8 @@ export const POST = async ({ request, platform }): Promise<Response> => {
 
 	// Retrieve or create a short URL based on the hash
 	const urlData: URLData = await getOrCreateShortUrl(kv, url, urlHash);
+	const { latitude, longitude, continent, country, city, timezone, region } = platform.cf;
+	urlData.geoData = { latitude, longitude, continent, country, city, timezone, region };
 
 	// Return the short URL and URL data as a JSON response
 	return json({ urlData }, { status: 200 });
@@ -41,7 +43,7 @@ const getOrCreateShortUrl = async (
 	ns: KVNamespace,
 	url: string,
 	urlHash: string
-): Promise<App.URLData> => {
+): Promise<URLData> => {
 	// Initialize short URL and URL data variables
 	let shortUrl: string | undefined;
 	const kvData: URLData = await getUrlDataByPrefix(ns, urlHash);
